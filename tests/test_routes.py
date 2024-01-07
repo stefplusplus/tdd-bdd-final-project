@@ -131,7 +131,6 @@ class TestProductRoutes(TestCase):
         self.assertEqual(new_product["available"], test_product.available)
         self.assertEqual(new_product["category"], test_product.category.name)
 
-
         # Check that the location header was correct
         response = self.client.get(location)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -182,7 +181,7 @@ class TestProductRoutes(TestCase):
 
     def test_update_a_product(self):
         """It should update an existing product"""
-        # create a product 
+        # create a product
         test_product = ProductFactory()
         response = self.client.post(BASE_URL, json=test_product.serialize())
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -218,8 +217,8 @@ class TestProductRoutes(TestCase):
         self._create_products(5)
         response = self.client.get(BASE_URL)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response_len = len( response.get_json() )
-        self.assertEqual( response_len, 5)
+        response_len = len(response.get_json())
+        self.assertEqual(response_len, 5)
 
     def test_query_by_name(self):
         """It should Query Products by name"""
@@ -257,7 +256,7 @@ class TestProductRoutes(TestCase):
         """It should Query Products by availability"""
         products = self._create_products(10)
         available_products = [product for product in products if product.available is True]
-        available_count = len(available_products)        
+        available_count = len(available_products)
         # test for available
         response = self.client.get(
             BASE_URL, query_string="available=true"

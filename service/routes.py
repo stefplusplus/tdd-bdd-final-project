@@ -86,7 +86,6 @@ def create_products():
 
     message = product.serialize()
 
-
     location_url = url_for("get_product", product_id=product.id, _external=True)
     return jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
 
@@ -99,7 +98,7 @@ def get_all_products():
     """
     List all products in database
     """
-    app.logger.info(f"Request to list products")
+    app.logger.info("Request to list products")
 
     products = []
     name = request.args.get("name")
@@ -122,16 +121,15 @@ def get_all_products():
         app.logger.info("Find all")
         products = Product.all()
 
-
-    #serialize search results
+    # serialize search results
     results = [product.serialize() for product in products]
     app.logger.info(f"{len(results)} Product(s) returned")
     return results, status.HTTP_200_OK
 
+
 ######################################################################
 # R E A D   A   P R O D U C T
 ######################################################################
-
 @app.route("/products/<product_id>", methods=["GET"])
 def get_product(product_id):
     """
@@ -145,6 +143,7 @@ def get_product(product_id):
         abort(status.HTTP_404_NOT_FOUND, f"Product with id {product_id} was not found")
     app.logger.info(f"Returning product{product_id}")
     return product.serialize(), status.HTTP_200_OK
+
 
 ######################################################################
 # U P D A T E   A   P R O D U C T
@@ -172,7 +171,7 @@ def update_product(product_id):
 @app.route("/products/<product_id>", methods=["DELETE"])
 def delete_product(product_id):
     """
-    This endpoint deletes a single Product based on product_id 
+    This endpoint deletes a single Product based on product_id
     """
     app.logger.info(f"Request to delete a product with id {product_id}")
 
@@ -180,5 +179,4 @@ def delete_product(product_id):
     if product:
         product.delete()
 
-
-    return "" , status.HTTP_204_NO_CONTENT
+    return "", status.HTTP_204_NO_CONTENT

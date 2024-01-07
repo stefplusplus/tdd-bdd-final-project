@@ -136,25 +136,6 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(products[0].name, "OpenSUSE")
         self.assertEqual(products[0].description, "A green lizard")
 
-    def test_update_a_product(self):
-        """It should indicate 4"""
-        # first create a product to update
-        product = ProductFactory()
-        product.id = None
-        product.create()
-        # Assert that the ID of the product object is not None after calling the create() method.
-        self.assertIsNotNone(product.id)
-        # Update the product
-        product.name = "OpenSUSE"
-        product.description = "A green lizard"
-        original_id = product.id
-        product.update()
-        products = Product.all()
-        self.assertEqual(len(products), 1)
-        self.assertEqual(products[0].id, original_id)
-        self.assertEqual(products[0].name, "OpenSUSE")
-        self.assertEqual(products[0].description, "A green lizard")
-
     def test_update_without_id(self):
         """It should raise an error updating without ID"""
         # first create a product to update
@@ -236,5 +217,3 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(found.count(), count)
         for product in found:
             self.assertEqual(product.price, price)
-
-
